@@ -19,7 +19,7 @@ const ENV = 'DEV';
 const app = express();
 app.get('/', (req, res) => {
   res.statusCode = 200;
-  const msg = 'Hello from from Eniyan and Paramesh. Hey DevSecOps, here we are';
+  const msg = 'DevSecops Page';
   res.send(getPage(msg));
 });
 
