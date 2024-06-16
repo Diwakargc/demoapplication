@@ -15,12 +15,7 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Install TruffleHog
-      run: |
-        pip install truffleHog
-        pwd
-        trufflehog git https://github.com/Diwakargc/demoapplication.git --only-verified
-
+    
     - name: Install kubectl
       uses: azure/setup-kubectl@v2.0
       with:
