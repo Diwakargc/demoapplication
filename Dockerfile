@@ -1,7 +1,7 @@
 FROM node:14-alpine
 
 # Create app directory
-WORKDIR /usr/src/app
+WORKDIR /usr/src/demoapplication
 
 COPY . .
 
