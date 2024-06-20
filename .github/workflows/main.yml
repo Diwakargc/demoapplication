@@ -7,7 +7,6 @@ on:
   pull_request:
     branches:
       - main
-
 jobs:
   trufflehog-scan:
     runs-on: ubuntu-latest
@@ -27,15 +26,15 @@ jobs:
         run: |
           docker run --rm -v "$GITHUB_WORKSPACE:/tmp" trufflesecurity/trufflehog:latest --fail --no-update git file:///tmp/
   
-   snyk-scan:
-      runs-on: ubuntu-latest
-      name: Snyk scan
-      steps:
-       - name: Run Snyk to check for vulnerabilities
-      uses: snyk/actions/node@master
-      continue-on-error: true
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+  snyk-scan:
+    runs-on: ubuntu-latest
+    name: Snyk scan
+    steps:
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        continue-on-error: true
+    env:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         
   deploy-to-eks:
     runs-on: ubuntu-latest
