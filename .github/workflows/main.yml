@@ -26,7 +26,9 @@ jobs:
       - name: Install TruffleHog
         run: |
           docker run --rm -v "$GITHUB_WORKSPACE:/tmp" trufflesecurity/trufflehog:latest --fail --no-update git file:///tmp/
-     
+  
+   snyk-scan:
+      runs-on: ubuntu-latest
       name: Snyk scan
       steps:
        - name: Run Snyk to check for vulnerabilities
