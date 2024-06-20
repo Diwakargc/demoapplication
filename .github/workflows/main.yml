@@ -18,7 +18,7 @@ jobs:
 build:
  name: Trufflehog Scan
 
-on: [push]
+ on: [push]
 
 jobs:
   trufflehog-scan:
