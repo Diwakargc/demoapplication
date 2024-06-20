@@ -16,7 +16,7 @@ jobs:
         fetch-depth: 0
 
 build:
-name: Trufflehog Scan
+ name: Trufflehog Scan
 
 on: [push]
 
