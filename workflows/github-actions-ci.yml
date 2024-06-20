@@ -8,15 +8,17 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
+
     - name: Install TruffleHog
       run: 
         docker run --rm -v "$GITHUB_WORKSPACE:/tmp" trufflesecurity/trufflehog:latest --fail --no-update git file:///tmp/
-    
+  
     - name: Install kubectl
       uses: azure/setup-kubectl@v2.0
       with:
