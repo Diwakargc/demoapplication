@@ -25,8 +25,7 @@ jobs:
       
       - name: Install TruffleHog
         run: |
-          docker run --rm -it -v "$PWD:/pwd" trufflesecurity/trufflehog:latest github --repo https://github.com/trufflesecurity/test_keys
-
+          docker run --rm -v "$GITHUB_WORKSPACE:/tmp" trufflesecurity/trufflehog:latest --fail --no-update git file:///tmp/
   deploy-to-eks:
     runs-on: ubuntu-latest
     name: Deploy to EKS
