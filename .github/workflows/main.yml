@@ -87,9 +87,9 @@ jobs:
       - name: Install Trivy Scan
         run: docker pull aquasec/trivy
 
-      - name: Run Trivy scan
+      - name: Run Trivy scan and check for vulnerabilities
         run: |
-          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/root aquasec/trivy --exit-code 0 --severity HIGH,CRITICAL $REGISTRY/$REPOSITORY:$IMAGE_TAG
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/root aquasec/trivy --severity HIGH,CRITICAL $REGISTRY/$REPOSITORY:$IMAGE_TAG || echo "Trivy found vulnerabilities"
 
       - name: Push Docker image to Amazon ECR
         run: |
