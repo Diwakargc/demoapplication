@@ -83,7 +83,7 @@ jobs:
           IMAGE_TAG: 1.1
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
-      
+
       - name: Install Trivy Scan
         run: docker pull aquasec/trivy
 
