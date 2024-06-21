@@ -52,10 +52,10 @@ jobs:
     
    
         
-  deploy-to-eks:
+  Build-Docker-image:
     runs-on: ubuntu-latest
     needs: semgrep
-    name: Deploy to EKS
+    name:  Build Docker image
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -78,13 +78,23 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
       
-      - name: Build, tag, and push docker image to Amazon ECR
+      - name: Build and tag
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: mydemorepoecr
           IMAGE_TAG: 1.1
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
+          
+       - name: Install Trivy Scan
+         run: docker pull aquasec/trivy
+
+       - name: Run Trivy scan
+         run:  |
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/root aquasec/trivy --exit-code 0 --severity HIGH,CRITICAL myapp:${{ github.sha }}
+     
+    deploy-to-eks:
+      - name: Push docker image to Amazon ECR
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
       
       - name: Update kube config
